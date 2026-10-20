@@ -111,3 +111,5 @@ th{background:var(--table-header-bg);color:var(--table-header-text)}
 .cc-panel .cc-plan>span{font-size:10px;color:var(--cc-accent)}
 .cc-panel .cc-plan i{width:28px;height:28px;background:color-mix(in oklab,var(--cc-accent) 12%,var(--card));color:var(--cc-accent)}
 .cc-panel .cc-plan b{font-size:17px;color:var(--cc-accent)}
+.cc-panel .cc-slider input[type=range]{height:4px!important;min-height:0;padding:0!important;border:0!important;box-shadow:none}
+.cc-panel .cc-plan b.green{color:var(--success)}
