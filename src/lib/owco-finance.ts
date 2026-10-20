@@ -12,3 +12,4 @@ export const latestTransferAmount=(entries:LedgerEntry[])=>{const last=transferE
 export const transferForFile=(entries:LedgerEntry[],file:string)=>transferEntries(entries).filter(e=>e.file===file).at(-1);
 export const shipperOptions=(shipments:Shipment[])=>[...new Set(shipments.map(s=>s.shp).filter(Boolean))].sort();
 export const shipmentForShipper=(shipments:Shipment[],shipper:string)=>shipments.find(s=>s.shp===shipper);
+export const shipmentsForShipper=(shipments:Shipment[],shipper:string,shipperName='')=>shipments.filter(s=>s.shp===shipper||(Boolean(shipperName)&&s.shp===shipperName));

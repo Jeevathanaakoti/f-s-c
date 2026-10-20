@@ -3,12 +3,13 @@ import { access, agvTotal, canAccess, entryTypes, reservedTpt, initialActive, in
 describe('OWCO mock rules',()=>{
  it('gives admin exactly the seven requested screens',()=>expect(access.admin).toEqual(['dashboard','shipments','master','ledger','meeting','users','settings']));
  it('keeps the ledger out of CHA navigation',()=>expect(canAccess('cha','ledger')).toBe(false));
+ it('shows the Ledger tab to Shipper members',()=>expect(access.shipper).toContain('ledger'));
  it('gives receivers Dashboard, Active Shipments, Master Records and Meeting',()=>expect(access.receiver).toEqual(['dashboard','shipments','master','meeting']));
  it('gives CHA Dashboard, Active Shipments, CHA and Meeting',()=>expect(access.cha).toEqual(['dashboard','shipments','cha','meeting']));
  it('signs in Admin / 56789 case-insensitively',()=>expect(findLogin(initialUsers,'Admin','56789')?.role).toBe('Admin'));
  it('rejects a wrong access key',()=>expect(findLogin(initialUsers,'admin','1234')).toBeUndefined());
  it('blocks inactive members',()=>expect(findLogin(initialUsers.map(u=>({...u,status:'Inactive'})),'lingam','mptmpt')).toBeUndefined());
- it('maps member roles to screen sets',()=>{expect(roleFor('CHA')).toBe('cha');expect(roleFor('Receiver')).toBe('receiver')});
+ it('maps member roles to screen sets',()=>{expect(roleFor('CHA')).toBe('cha');expect(roleFor('Receiver')).toBe('receiver');expect(roleFor('Shipper')).toBe('shipper')});
  it('composes AGV from quantity and per-unit cost',()=>expect(agvTotal([{id:'1',product:'Apples',unit:'Cartons',quantity:'10',cost:'25'},{id:'2',product:'Pears',unit:'Cartons',quantity:'4',cost:'12.5'}])).toBe(300));
  it('reserves the full TPT amount in full mode',()=>expect(reservedTpt(14082.8,'full',500)).toBe(14082.8));
  it('reserves the entered partial TPT amount',()=>expect(reservedTpt(14082.8,'partial',500)).toBe(500));

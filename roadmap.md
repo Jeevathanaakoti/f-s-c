@@ -1,4 +1,5 @@
 # OWCO mock UI
+- [x] Add Shipper Ledger navigation and show only that shipper’s active/master shipment financial records; keep Rob Account Ledger selected by default.
 - [ ] Update shipment CHA/BE/reference/screenshot fields and TPT payment labels; add Rob ledger dropdown while retaining GSM–OX Deal Ledger.
 - [x] Add screenshot upload and thumbnail display for each payment record.
 - [ ] Match the CHA screenshot dashboard and verify card navigation to Active Shipments.

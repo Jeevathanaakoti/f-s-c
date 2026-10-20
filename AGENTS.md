@@ -16,6 +16,6 @@
 - Keep workspace preferences in a root-mounted provider; changes apply through CSS tokens and remain frontend-only.
 - Keep calculator estimates in a pure helper and label them as preview estimates because the original pricing formula was not supplied.
 
-- Keep ledger entries in the root OWCO shell and derive available TPT from transfers less other shipments’ saved reservations; mock navigation must not reset or double-allocate money.
+- Keep ledger entries in the root OWCO shell, derive available TPT from transfers less other shipments’ saved reservations, and scope the Shipper Ledger to records matching that member’s shipper code.
 - Sign-in checks in-memory User Management members (findLogin/roleFor in src/lib/owco.ts); it is a mock gate, never production authorization.
 - Keep the CHA dashboard in a dedicated component with scoped styles; derive metrics through a pure helper from root-owned active/master records so navigation and shipment edits cannot desynchronize its totals.

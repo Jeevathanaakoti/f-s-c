@@ -1,13 +1,13 @@
 import records from '@/assets/shipments.json';
-export type Role = 'admin' | 'cha' | 'receiver';
+export type Role = 'admin' | 'cha' | 'receiver' | 'shipper';
 export const screens = ['dashboard','shipments','master','ledger','meeting','users','settings','cha'] as const;
 export type Screen = typeof screens[number];
 export const titles: Record<Screen,string> = {dashboard:'Dashboard',shipments:'Active Shipments',master:'Master Records',ledger:'Ledger',meeting:'Meeting',users:'User Management',settings:'Settings',cha:'CHA User'};
-export const access: Record<Role,Screen[]> = {admin:['dashboard','shipments','master','ledger','meeting','users','settings'],cha:['dashboard','shipments','cha','meeting'],receiver:['dashboard','shipments','master','meeting']};
+export const access: Record<Role,Screen[]> = {admin:['dashboard','shipments','master','ledger','meeting','users','settings'],cha:['dashboard','shipments','cha','meeting'],receiver:['dashboard','shipments','master','meeting'],shipper:['dashboard','shipments','ledger','meeting']};
 export type User={name:string;username:string;short:string;role:string;country:string;port:string;status?:string;password:string};
 export const initialUsers:User[]=[{name:'Arctic',username:'arc',short:'Arctic',role:'Shipper',country:'PL',port:'—',password:'arctic123'},{name:'AgriFood',username:'afnl',short:'AFNL',role:'Shipper',country:'BR',port:'BOM',password:'afnl123'},{name:'TFA',username:'tfadel',short:'TFA',role:'Receiver',country:'IN',port:'—',password:'tfa123'},{name:'RD8',username:'robnz',short:'Rob',role:'Shipper',country:'NZ',port:'—',password:'rob123'},{name:'GFF',username:'gffish',short:'GFF',role:'Receiver',country:'IN',port:'—',password:'shareef'},{name:'John Doe',username:'admin',short:'Q',role:'Admin',country:'IN',port:'—',password:'56789'},{name:'InterlinkShipping',username:'lingam',short:'MPT',role:'CHA',country:'IN',port:'BOM',password:'mptmpt'},{name:'acnt',username:'acnt',short:'acnt',role:'Accountant',country:'IN',port:'CHE',password:'acnt123'},{name:'TFC',username:'tfc',short:'TFC',role:'Shipper',country:'US',port:'—',password:'tfc123'},{name:'Nargo',username:'nri',short:'Nargo',role:'Shipper',country:'US',port:'—',password:'nargo123'},{name:'FreshPack',username:'fp',short:'Kam',role:'Shipper',country:'US',port:'—',password:'kam123'}];
 /** Maps a member's role to a screen set. Mock only: never production authorization. */
-export const roleFor=(memberRole:string):Role=>memberRole==='Admin'?'admin':memberRole==='CHA'?'cha':'receiver';
+export const roleFor=(memberRole:string):Role=>memberRole==='Admin'?'admin':memberRole==='CHA'?'cha':memberRole==='Shipper'?'shipper':'receiver';
 /** Mock credential check against preview members; inactive members cannot sign in. */
 export const findLogin=(users:User[],id:string,key:string)=>users.find(u=>u.username.toLowerCase()===id.trim().toLowerCase()&&u.password===key&&(u.status||'Active')==='Active');
 export const canAccess = (role:Role,screen:Screen) => access[role].includes(screen);
