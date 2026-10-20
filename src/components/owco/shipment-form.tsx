@@ -6,7 +6,7 @@ import { AgencyDropdown, Combo, Field, TextField } from './fields';
 import { agvTotal, money, statuses, type Shipment, type CostLine } from '@/lib/owco';
 const empty:Shipment={vase:'',vsub:'',status:'Shipment Created',ssub:'',rcv:'',eta:'',dos:'',pol:'',pod:'',shp:'',desc:'',dsub:'',agv:'0',gsm:'0',gsmd:'',bull:'0',bulld:'',tp:'0',sw:'0',inv:'',cha:'',agency:'',enhancement:'',netWeight:'0',liner:'',be:'',beDate:'',beType:'',note:''};
 const newLine=():CostLine=>({id:crypto.randomUUID(),product:'',unit:'Cartons',quantity:'',cost:''});
-export function ShipmentFields({form,setForm,tpt}:{form:Shipment;setForm:(value:Shipment)=>void;tpt?:number}){
+export function ShipmentFields({form,setForm,tpt}:{form:Shipment;setForm:(value:Shipment)=>void;tpt?:number|undefined}){
  const [expanded,setExpanded]=useState(false);
  const lines=form.breakdown||[];const agencies=form.agency?.split(', ').filter(Boolean)||[];
  const set=(key:keyof Shipment,value:string)=>setForm({...form,[key]:value});
@@ -36,7 +36,7 @@ export function ShipmentFields({form,setForm,tpt}:{form:Shipment;setForm:(value:
  <details className="field-wide financial-details"><summary>Financial reference & additional details</summary><div className="form-grid mt-5">{text('GSM','gsm','number')}{text('GSM Date','gsmd','date')}{text('Bull / OX','bull','number')}{text('OX Date','bulld','date')}{text('TP / TPT','tp','number')}{text('Sweet','sw','number')}{text('Description detail','dsub')}{text('Reference','ssub')}</div></details>
  </div>;
 }
-export function ShipmentForm({open,onClose,onSave,shipment,tpt}:{open:boolean;onClose:()=>void;onSave:(v:Shipment)=>void;shipment?:Shipment;tpt?:number}){
+export function ShipmentForm({open,onClose,onSave,shipment,tpt}:{open:boolean;onClose:()=>void;onSave:(v:Shipment)=>void;shipment?:Shipment;tpt?:number|undefined}){
  const [form,setForm]=useState<Shipment>(()=>({...empty,...shipment}));const [error,setError]=useState('');
  return <Dialog open={open} onOpenChange={v=>{if(!v)onClose()}}><DialogContent className="shipment-dialog p-0 gap-0 flex flex-col overflow-hidden" aria-describedby="shipment-description"><div className="modal-top"><DialogTitle>{shipment?'Edit Shipment':'Add Shipment'}</DialogTitle><DialogDescription id="shipment-description">Shipment details, clearance information and goods value.</DialogDescription></div><form className="flex flex-col min-h-0" onSubmit={e=>{e.preventDefault();if(!form.vase.trim()||!form.dos.trim()){setError('Enter a container number and dossier number.');return}onSave(form);onClose()}}><div className="modal-body"><ShipmentFields form={form} setForm={setForm} tpt={tpt}/>{error&&<p role="alert" className="text-destructive mt-4">{error}</p>}</div><div className="modal-footer"><span>Required fields are marked with *</span><Button type="button" variant="outline" onClick={onClose}>Cancel</Button><Button type="submit"><Save size={14}/>{shipment?'Save Changes':'Save Shipment'}</Button></div></form></DialogContent></Dialog>
 }
