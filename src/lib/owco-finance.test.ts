@@ -1,5 +1,5 @@
 import { describe,it,expect } from 'vitest';
-import { availableTpt,initialLedgerEntries,latestTransferAmount,paymentTotals,reservationAmount,reservedFromLedger,transferEntries,transferForFile,transferTotal,type LedgerEntry } from './owco-finance';
+import { availableTpt,initialLedgerEntries,latestTransferAmount,paymentTotals,reservationAmount,reservedFromLedger,shipmentForShipper,shipperOptions,transferEntries,transferForFile,transferTotal,type LedgerEntry } from './owco-finance';
 import { initialMaster,initialActive } from './owco';
 describe('Connected ledger payments',()=>{
 it('preserves the first screenshot shipment values',()=>expect(initialActive.find(s=>s.vase==='HLBU9787118')).toMatchObject({shp:'TFC',rcv:'GMF',chaDescription:'XF',liner:'OOCL',agv:'25401.6',netWeight:'21168',dos:'62470',be:'9466051'}));
@@ -18,5 +18,8 @@ it('reads the newest transfer from the sample ledger',()=>expect(latestTransferA
 it('shows nothing reserved when the ledger has no transfer',()=>expect(latestTransferAmount([])).toBe(0));
 it('finds the transfer allotted to a shipment file',()=>expect(transferForFile([{id:'f',date:'2026-10-16',description:'Transfer',reference:'TPT-9',type:'TPT (Transfer)',debit:0,credit:8000,file:'62470'}],'62470')?.credit).toBe(8000));
 it('returns nothing when no transfer matches the file',()=>expect(transferForFile(entries,'62470')).toBeUndefined());
+it('lists every shipper once for the ledger entry field',()=>expect(shipperOptions([...initialActive,...initialMaster])).toEqual(['Arctic','Kam','KonK','Nargo','TFC']));
+it('links a ledger transfer to the shipper’s own shipment dossier',()=>expect(shipmentForShipper([...initialActive,...initialMaster],'TFC')?.dos).toBe('62470'));
+it('has no shipment to link for an unknown shipper',()=>expect(shipmentForShipper([...initialActive,...initialMaster],'Nobody')).toBeUndefined());
 
 });
