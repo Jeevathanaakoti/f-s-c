@@ -1,4 +1,5 @@
 # OWCO mock UI
+- [x] Add screenshot upload and thumbnail display for each payment record.
 - [ ] Match the CHA screenshot dashboard and verify card navigation to Active Shipments.
 - [ ] Derive CHA metrics from the same records as shipment pages and verify updates survive navigation.
 - [x] Recreate all admin and user screens with prototype records and clean visual system.
