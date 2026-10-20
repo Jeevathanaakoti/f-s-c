@@ -18,3 +18,4 @@
 
 - Keep ledger entries in the root OWCO shell and derive available TPT from transfers less other shipments’ saved reservations; mock navigation must not reset or double-allocate money.
 - Sign-in checks in-memory User Management members (findLogin/roleFor in src/lib/owco.ts); it is a mock gate, never production authorization.
+- Keep the CHA dashboard in a dedicated presentation component with scoped styles so its screenshot layout does not change other personas; its numbers are reference preview values, not new shipment calculations.
