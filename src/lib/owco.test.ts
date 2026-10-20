@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { access, agvTotal, canAccess, entryTypes, reservedTpt, initialActive, inputDate, findLogin, initialUsers, roleFor } from './owco';
+import { access, agvTotal, canAccess, entryTypes, reservedTpt, initialActive, inputDate, findLogin, initialUsers, previewRoleProfiles, roleFor } from './owco';
 describe('OWCO mock rules',()=>{
  it('gives admin exactly the seven requested screens',()=>expect(access.admin).toEqual(['dashboard','shipments','master','ledger','meeting','users','settings']));
  it('keeps the ledger out of CHA navigation',()=>expect(canAccess('cha','ledger')).toBe(false));
@@ -10,6 +10,7 @@ describe('OWCO mock rules',()=>{
  it('rejects a wrong access key',()=>expect(findLogin(initialUsers,'admin','1234')).toBeUndefined());
  it('blocks inactive members',()=>expect(findLogin(initialUsers.map(u=>({...u,status:'Inactive'})),'lingam','mptmpt')).toBeUndefined());
  it('maps member roles to screen sets',()=>{expect(roleFor('CHA')).toBe('cha');expect(roleFor('Receiver')).toBe('receiver');expect(roleFor('Shipper')).toBe('shipper')});
+ it('offers one active preview profile for each available role',()=>expect(previewRoleProfiles(initialUsers).map(u=>u.role)).toEqual(['Shipper','Receiver','Admin','CHA']));
  it('composes AGV from quantity and per-unit cost',()=>expect(agvTotal([{id:'1',product:'Apples',unit:'Cartons',quantity:'10',cost:'25'},{id:'2',product:'Pears',unit:'Cartons',quantity:'4',cost:'12.5'}])).toBe(300));
  it('reserves the full TPT amount in full mode',()=>expect(reservedTpt(14082.8,'full',500)).toBe(14082.8));
  it('reserves the entered partial TPT amount',()=>expect(reservedTpt(14082.8,'partial',500)).toBe(500));
