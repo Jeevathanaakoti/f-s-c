@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import logo from '@/assets/owco-logo.asset.json';
+const logo = { url: '/owco-logo.svg' };
 
 // Mock sign-in against preview members only — not real authentication.
 export function Login({onLogin}:{onLogin:(id:string,key:string)=>boolean}){

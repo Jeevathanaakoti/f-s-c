@@ -13,7 +13,7 @@ import { useWorkspace } from '@/lib/owco-workspace';
 import { SearchInput } from './fields';
 import { access, canAccess, findLogin, initialActive, initialMaster, initialUsers, previewRoleProfiles, roleFor, titles, type Screen, type Shipment } from '@/lib/owco';
 import { initialLedgerEntries, availableTpt, latestTransferAmount } from '@/lib/owco-finance';
-import logo from '@/assets/owco-logo.asset.json';
+const logo = { url: '/owco-logo.svg' };
 const icons={dashboard:LayoutDashboard,shipments:Package,master:Globe2,ledger:BookOpen,meeting:MessageSquare,users:Users,settings:Settings2,cha:FileCheck2};
 const descriptions:Record<Screen,string>={dashboard:'Your supply chain, at a glance.',shipments:'Track, manage and move your shipments forward.',master:'Delivered shipments and complete payment records.',ledger:'A clear view of every charge, payment and transfer.',meeting:'Keep your team connected and operations aligned.',users:'Manage the people in your workspace.',settings:'Manage your workspace preferences.',cha:'Clearance assignments and shipment documents.'};
 const paths={dashboard:'/',shipments:'/shipments',master:'/master-records',ledger:'/ledger',meeting:'/meeting',users:'/user-management',settings:'/settings',cha:'/cha-user'} as const;
